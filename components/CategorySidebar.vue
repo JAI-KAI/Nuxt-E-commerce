@@ -14,7 +14,7 @@
 <script setup>
 defineProps({ categories: Array });
 
-const category = useState('category', () => 'ALL');
+const category = useState('category');
 
 const selectCategory = (newCategory) => {
     category.value = newCategory

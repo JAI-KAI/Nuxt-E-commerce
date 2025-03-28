@@ -11,7 +11,7 @@
         <button class="relative cursor-pointer" @click="handleClick">
           <icon class="text-3xl text-white-500" name="i-material-symbols-shopping-cart-rounded" />
           <span class="absolute -top-2 -right-2 bg-red-500 text-xs text-white rounded-full px-2">
-            3
+            {{ cartAmount }}
           </span>
         </button>
       </div>
@@ -32,7 +32,15 @@
 
 <script setup>
 
-const showCart = useState('showCart');
+const showCart = useState('showCart', () => false);
+
+const cartItems = useState('cartItems', () => []);
+
+const category = useState('category', () => 'ALL');
+
+const cartAmount = computed(() => 
+  cartItems.value.reduce((sum, item) => sum + item.amount, 0)
+)
 
 const handleClick = () => {
   showCart.value = true;
