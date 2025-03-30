@@ -42,7 +42,7 @@
                     <span>總計</span>
                     <span>${{ totalPrice }}</span>
                 </div>
-                <button class="mt-4 w-full bg-blue-600 text-white p-3 rounded hover:bg-blue-700 transition">
+                <button class="mt-4 w-full bg-blue-600 text-white p-3 rounded hover:bg-blue-700 transition cursor-pointer">
                     前往結帳
                 </button>
             </div>
@@ -57,7 +57,7 @@ const showCart = useState('showCart');
 const cartItems = useState('cartItems');
 
 const totalPrice = computed(() =>
-    cartItems.value.reduce((sum, item) => sum + item.amount * item.price, 0)
+    cartItems.value.reduce((sum, item) => sum + item.amount * item.price, 0).toFixed(2)
 )
 
 const minusAmount = (item) => {

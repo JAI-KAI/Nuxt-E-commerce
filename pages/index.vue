@@ -40,12 +40,14 @@ const filteredProducts = computed(() => {
 })
 
 const addToCart = (productItem) => {
-    if(cartItems.value.filter(cartItem => cartItem.id === productItem.id) == ""){
+    if (cartItems.value.filter(cartItem => cartItem.id === productItem.id) == "") {
         productItem.amount = 1;
         cartItems.value.push(productItem);
-    }else {
+    } else {
         const product = cartItems.value.find(cartItem => cartItem.id == productItem.id);
-        product.amount += 1;
+        if (product.amount < 10) {
+            product.amount += 1
+        }
     }
 }
 </script>
