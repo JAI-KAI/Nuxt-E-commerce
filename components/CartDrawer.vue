@@ -42,9 +42,9 @@
                     <span>總計</span>
                     <span>${{ totalPrice }}</span>
                 </div>
-                <button class="mt-4 w-full bg-blue-600 text-white p-3 rounded hover:bg-blue-700 transition cursor-pointer">
+                <nuxt-link to="/checkout" @click="() => showCart = false" class="block text-center mt-4 w-full bg-blue-600 text-white p-3 rounded hover:bg-blue-700 transition cursor-pointer">
                     前往結帳
-                </button>
+                </nuxt-link>
             </div>
         </aside>
     </div>

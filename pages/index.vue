@@ -35,19 +35,21 @@ const cartItems = useState('cartItems');
 const { data: products } = useFetch('https://fakestoreapi.com/products');
 
 const filteredProducts = computed(() => {
+    // 商品分類顯示
     if (category.value === 'ALL') return products.value;
     return products.value.filter(product => product.category === category.value)
 })
 
 const addToCart = (productItem) => {
-    if (cartItems.value.filter(cartItem => cartItem.id === productItem.id) == "") {
-        productItem.amount = 1;
-        cartItems.value.push(productItem);
-    } else {
-        const product = cartItems.value.find(cartItem => cartItem.id == productItem.id);
-        if (product.amount < 10) {
-            product.amount += 1
-        }
+     // 檢查購物車內是否已有該商品
+    const product = cartItems.value.find(cartItems => cartItems.id === productItem.id);
+
+    if (!product) {
+        // 如果購物車內沒有，新增該商品並設定數量為 1
+        cartItems.value.push({ ...productItem, amount: 1 });
+    } else if (product.amount < 10) {
+        // 如果商品已存在且數量小於 10，則增加數量
+        product.amount += 1
     }
 }
 </script>
