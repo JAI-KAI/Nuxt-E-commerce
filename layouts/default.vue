@@ -34,6 +34,8 @@
 
 const showCart = useState('showCart', () => false);
 
+const showMessage = useState('showMessage', () => false);
+
 const cartItems = useState('cartItems', () => []);
 
 const category = useState('category', () => 'ALL');

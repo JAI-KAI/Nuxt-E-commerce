@@ -1,4 +1,5 @@
 <template>
+    <LightBox />
     <div class="flex">
         <CategorySidebar :categories="['ALL', ...new Set(products.map(p => p.category))]" />
         <div class="container mx-auto p-6">
@@ -32,6 +33,8 @@ const category = useState('category');
 
 const cartItems = useState('cartItems');
 
+const showMessage = useState('showMessage');
+
 const { data: products } = useFetch('https://fakestoreapi.com/products');
 
 const filteredProducts = computed(() => {
@@ -50,6 +53,11 @@ const addToCart = (productItem) => {
     } else if (product.amount < 10) {
         // 如果商品已存在且數量小於 10，則增加數量
         product.amount += 1
+    } else if (product.amount >= 10) {
+        showMessage.value = true
+        setInterval(() => {
+            showMessage.value = false
+        }, 2000);
     }
 }
 </script>

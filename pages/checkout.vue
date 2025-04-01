@@ -4,9 +4,9 @@
 
     <div v-if="cartItems.length > 0">
       <ul>
-        <li v-for="item in cartItems" :key="item.id" class="flex items-center border-b py-4">
+        <li v-for="item in cartItems" :key="item.id" class="flex items-center w-full border-b py-4 space-x-3">
           <!-- 商品圖片 -->
-          <img :src="item.image" alt="商品圖片" class="w-16 h-16 object-contain rounded-lg mr-4" />
+          <img :src="item.image" alt="商品圖片" class="w-1/12 h-16 object-contain rounded-lg mr-4" />
 
           <!-- 商品資訊 -->
           <div class="flex-1">
@@ -15,20 +15,26 @@
           </div>
 
           <!-- 數量控制 -->
-          <div class="flex items-center space-x-2">
-            <button class="p-2 bg-gray-200 hover:bg-gray-300 rounded" :disabled="item.amount <= 1"
-              @click="updateQuantity(item, -1)">
+          <div class="flex items-center w-2/12 space-x-2">
+            <button
+              class="flex items-center p-2 bg-gray-200 hover:bg-gray-300 rounded cursor-pointer disabled:cursor-not-allowed"
+              :disabled="item.amount <= 1" @click="minusAmount(item)">
               <Icon name="i-ic-round-minus" class="text-lg" />
             </button>
             <span class="text-lg">{{ item.amount }}</span>
-            <button class="p-2 bg-gray-200 hover:bg-gray-300 rounded" :disabled="item.amount >= 10"
-              @click="updateQuantity(item, 1)">
+            <button
+              class="flex items-center p-2 bg-gray-200 hover:bg-gray-300 rounded cursor-pointer disabled:cursor-not-allowed"
+              :disabled="item.amount >= 10" @click="addAmount(item)">
               <Icon name="i-ic-round-add" class="text-lg" />
             </button>
           </div>
 
           <!-- 小計 -->
-          <p class="w-20 text-right font-semibold">${{ (item.price * item.amount).toFixed(2) }}</p>
+          <p class="w-1/12 text-right font-semibold">${{ (item.price * item.amount).toFixed(2) }}</p>
+          <button class="flex item-center w-1/12 text-red-500 rounded-full hover:text-red-600 cursor-pointer"
+            @click="deleteItem(item)">
+            <Icon name="i-material-symbols-delete-rounded" class="text-2xl" />
+          </button>
         </li>
       </ul>
 
@@ -46,18 +52,18 @@
       </nuxt-link>
     </div>
 
-    <div v-else>
-      <p class="text-center text-gray-500">購物車內沒有商品</p>
-      <nuxt-link to="/" class="block text-center mt-6 w-full bg-blue-600 text-white p-3 rounded hover:bg-blue-700 transition cursor-pointer">
-        前往商品頁面進行選購
-      </nuxt-link>
-    </div>
+    <p v-else class="text-center text-gray-500">購物車內沒有商品</p>
   </div>
+  <nuxt-link v-show="cartItems.length === 0" to="/"
+    class="max-w-3xl mx-auto block text-center mt-6 w-full bg-blue-600 text-white p-3 rounded hover:bg-blue-700 transition cursor-pointer">
+    前往商品頁面進行選購
+  </nuxt-link>
 </template>
 
 <script setup>
+const { minusAmount, addAmount, deleteItem } = useCart();
 
-const cartItems = useState('cartItems')
+const cartItems = useState('cartItems');
 
 // 計算總金額
 const totalPrice = computed(() =>
