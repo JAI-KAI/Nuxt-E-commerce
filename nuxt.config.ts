@@ -6,5 +6,13 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
   ui: {
     colorMode: false
-  }
+  },
+  app: {
+    baseURL: "/Nuxt-E-commerce/", // GitHub Pages 需要設定 baseURL
+  },
+  nitro: {
+    prerender: {
+      routes: ["/"], // 預渲染首頁
+    },
+  },
 })
