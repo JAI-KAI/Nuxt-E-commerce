@@ -45,9 +45,10 @@
       </div>
 
       <!-- 結帳按鈕 -->
-      <nuxt-link
+      <nuxt-link to="/orderComplete"
         class="block text-center mt-6 w-full bg-blue-600 text-white p-3 rounded hover:bg-blue-700 transition cursor-pointer"
-        @click="checkout">
+        @click="handleCheckout"
+        >
         確認結帳
       </nuxt-link>
     </div>
@@ -71,7 +72,7 @@ const totalPrice = computed(() =>
 );
 
 // 結帳按鈕動作
-const checkout = () => {
-  alert('前往 Stripe 付款...');
+const handleCheckout = () => {
+  cartItems.value = [];
 };
 </script>

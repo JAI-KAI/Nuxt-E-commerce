@@ -4,7 +4,8 @@
         <div v-if="showCart" class="fixed inset-0 bg-black/50" @click="closeCart"></div>
 
         <!-- 購物車抽屜 -->
-        <aside class="fixed right-0 top-0 h-full w-115 bg-white shadow-lg p-4 transition-transform duration-300 overflow-y-scroll"
+        <aside
+            class="fixed right-0 top-0 h-full w-115 bg-white shadow-lg p-4 transition-transform duration-300 overflow-y-scroll"
             :class="showCart ? 'translate-x-0' : 'translate-x-full'">
             <h2 class="text-lg font-bold mb-4">🛒購物車</h2>
 
@@ -41,14 +42,14 @@
                     <span>總計</span>
                     <span>${{ totalPrice }}</span>
                 </div>
-                <nuxt-link to="/checkout" @click="() => showCart = false"
+                <nuxt-link :to="cartItems.length > 0 ? '/checkout' : '/'" @click="() => showCart = false"
                     class="block text-center mt-4 w-full bg-blue-600 text-white p-3 rounded hover:bg-blue-700 transition cursor-pointer">
-                    前往結帳
+                    {{ cartItems.length > 0 ? '前往結帳' : '前往選購' }}
                 </nuxt-link>
             </div>
             <div class="mt-4 pt-4">
                 <p>
-                    ※ 商品數量不得大於10
+                    ※ 同一商品數量不得大於10
                 </p>
             </div>
         </aside>

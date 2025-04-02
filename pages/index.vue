@@ -27,6 +27,7 @@
 </template>
 
 <script setup>
+import { el } from '@nuxt/ui/runtime/locale/index.js';
 import CategorySidebar from '~/components/CategorySidebar.vue';
 
 const category = useState('category');
@@ -44,20 +45,20 @@ const filteredProducts = computed(() => {
 })
 
 const addToCart = (productItem) => {
+    if(showMessage.value) return;
      // 檢查購物車內是否已有該商品
     const product = cartItems.value.find(cartItems => cartItems.id === productItem.id);
 
     if (!product) {
         // 如果購物車內沒有，新增該商品並設定數量為 1
         cartItems.value.push({ ...productItem, amount: 1 });
-    } else if (product.amount < 10) {
-        // 如果商品已存在且數量小於 10，則增加數量
-        product.amount += 1
     } else if (product.amount >= 10) {
         showMessage.value = true
-        setInterval(() => {
+        setTimeout(() => {
             showMessage.value = false
         }, 2000);
+    } else {
+        product.amount += 1
     }
 }
 </script>
