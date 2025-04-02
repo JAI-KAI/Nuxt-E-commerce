@@ -9,6 +9,7 @@ export default defineNuxtConfig({
   },
   app: {
     baseURL: "/Nuxt-E-commerce/", // GitHub Pages 需要設定 baseURL
+    buildAssetsDir: '/static/'
   },
   nitro: {
     prerender: {
