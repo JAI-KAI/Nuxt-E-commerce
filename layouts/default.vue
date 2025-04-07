@@ -34,7 +34,9 @@
 
 const showCart = useState('showCart', () => false);
 
-const showMessage = useState('showMessage', () => false);
+const showLightBox = useState('showLightBox', () => false);
+
+const isAmountOver = useState('isAmountOver', () => false);
 
 const cartItems = useState('cartItems', () => []);
 

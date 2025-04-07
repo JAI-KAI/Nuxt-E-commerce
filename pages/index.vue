@@ -27,14 +27,11 @@
 </template>
 
 <script setup>
-import { el } from '@nuxt/ui/runtime/locale/index.js';
-import CategorySidebar from '~/components/CategorySidebar.vue';
+const { addMessage } = useMessage();
 
 const category = useState('category');
 
 const cartItems = useState('cartItems');
-
-const showMessage = useState('showMessage');
 
 const { data: products } = useFetch('https://fakestoreapi.com/products');
 
@@ -45,20 +42,15 @@ const filteredProducts = computed(() => {
 })
 
 const addToCart = (productItem) => {
-    if(showMessage.value) return;
-     // 檢查購物車內是否已有該商品
     const product = cartItems.value.find(cartItems => cartItems.id === productItem.id);
-
     if (!product) {
-        // 如果購物車內沒有，新增該商品並設定數量為 1
         cartItems.value.push({ ...productItem, amount: 1 });
+        addMessage('成功加入購物車');
     } else if (product.amount >= 10) {
-        showMessage.value = true
-        setTimeout(() => {
-            showMessage.value = false
-        }, 2000);
+        addMessage('商品數量超過限制');
     } else {
         product.amount += 1
+        addMessage('成功加入購物車');
     }
 }
 </script>
