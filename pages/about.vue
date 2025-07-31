@@ -10,7 +10,7 @@
             <!-- 技術列表 -->
             <ul class="list-disc list-inside text-gray-700 space-y-2">
                 <li><span class="font-semibold text-blue-500">Nuxt.js:</span> 基於Vue.js、Nitro以及Vite的Web應用框架。</li>
-                <li><span class="font-semibold text-blue-500">Pexels API:</span> 獲取電商類型相關資料。</li>
+                <li><span class="font-semibold text-blue-500">Fake Store API:</span> 獲取電商類型相關資料。</li>
                 <li><span class="font-semibold text-blue-500">Tailwind CSS:</span> 便利的設計工具。</li>
                 <li><span class="font-semibold text-blue-500">GitHub Pages:</span> 部署靜態網站託管服務。</li>
             </ul>
