@@ -21,7 +21,6 @@ const isAllLeaving = ref(false);
 
 watchEffect(() => {
   isAllLeaving.value = messages.value.length === 1;
-  console.log(isAllLeaving.value);
 });
 </script>
 
@@ -41,10 +40,4 @@ watchEffect(() => {
     opacity: 0;
     transform: translateY(-30px);
 }
-
-/* 有bug會造成元素偏移 */
-/* .fade-leave-active {
-    position: absolute;
-    :class="{'left-[-120px]': isAllLeaving}"
-} */
 </style>
