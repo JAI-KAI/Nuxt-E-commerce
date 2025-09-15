@@ -1,0 +1,1 @@
+import{u as n}from"./C5W0IqvL.js";const r=()=>{const u=n("cartItems");return{minusAmount:t=>{t.amount>1&&(t.amount-=1)},addAmount:t=>{t.amount<10&&(t.amount+=1)},deleteItem:t=>{u.value=u.value.filter(e=>e.id!==t.id)}}};export{r as u};
