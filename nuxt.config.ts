@@ -9,7 +9,13 @@ export default defineNuxtConfig({
   },
   app: {
     baseURL: "/Nuxt-E-commerce/", // GitHub Pages 需要設定 baseURL
-    buildAssetsDir: '/static/'
+    buildAssetsDir: '/static/',
+    head: {
+      title: '購物車電商網站',
+      meta: [
+        { name: 'description', content: '模擬使用者登入、串接商品API、購物車功能網站' },
+      ],
+    }
   },
   nitro: {
     prerender: {

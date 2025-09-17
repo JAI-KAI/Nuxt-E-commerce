@@ -1,14 +1,13 @@
 <template>
     <div>
         <!-- 遮罩層 -->
-        <div v-if="showCart" class="fixed inset-0 bg-black/50" @click="closeCart"></div>
+        <div v-show="showCart" class="fixed inset-0 bg-black/50" @click="closeCart"></div>
 
         <!-- 購物車抽屜 -->
         <aside
             class="fixed right-0 top-0 h-full w-115 bg-white shadow-lg p-4 transition-transform duration-300 overflow-y-scroll"
             :class="showCart ? 'translate-x-0' : 'translate-x-full'">
             <h2 class="text-lg font-bold mb-4">🛒購物車</h2>
-
             <ul v-if="cartItems.length > 0">
                 <li v-for="item in cartItems" :key="item.id"
                     class="flex justify-between items-center space-x-3 p-3 border-b">

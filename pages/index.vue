@@ -1,6 +1,15 @@
 <template>
     <LightBox />
-    <div class="flex">
+    <div v-if="error" class="text-center mt-10">
+        <p class="text-xl">伺服器錯誤，請稍後再試</p>
+        <button @click="doRefresh" class="mt-10 px-3 py-2 bg-red-400 rounded cursor-pointer hover:opacity-70">
+            重新整理
+        </button>
+    </div>
+    <div v-else-if="products && products.length === 0">
+        <p>找不到商品</p>
+    </div>
+    <div class="flex" v-else>
         <CategorySidebar :categories="['ALL', ...new Set(products.map(p => p.category))]" />
         <div class="container mx-auto p-6">
             <h1 class="text-2xl font-bold mb-6">商品列表</h1>
@@ -33,7 +42,7 @@ const category = useState('category');
 
 const cartItems = useState('cartItems');
 
-const { data: products } = useFetch('https://fakestoreapi.com/products');
+const { data: products, error, status, refresh } = await useFetch('https://fakestoreapi.com/products');
 
 const filteredProducts = computed(() => {
     // 商品分類顯示
@@ -51,6 +60,12 @@ const addToCart = (productItem) => {
     } else {
         product.amount += 1
         addMessage('成功加入購物車');
+    }
+}
+const doRefresh = () => {
+    refresh()
+    if (status.value == 'pending') {
+        addMessage('重新整理中...')
     }
 }
 </script>
