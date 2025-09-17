@@ -24,7 +24,7 @@
 
     <!-- Footer -->
     <footer class="bg-gray-800 text-white text-center py-4">
-      <p>JAIKAI版權所有 © {{ new Date().getFullYear() }}</p>
+      <p>JAIKAI All rights reserved {{ new Date().getFullYear() }}</p>
     </footer>
   </div>
   <CartDrawer />
