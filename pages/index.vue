@@ -36,11 +36,20 @@
 </template>
 
 <script setup>
+const { currentUserEmail, login, logout } = useAuth()
 const { addMessage } = useMessage();
 
+const isLoggedIn = useState('isLoggedIn');
 const category = useState('category');
-
 const cartItems = useState('cartItems');
+
+if (import.meta.client) {
+    if (!isLoggedIn.value) {
+        alert('請先登入')
+        navigateTo('/login')
+    }
+}
+
 
 const { data: products, error, status, refresh } = await useFetch('https://fakestoreapi.com/products');
 

@@ -8,6 +8,9 @@
           <nuxt-link to="/about" class="hover:text-gray-200 font-semibold">關於</nuxt-link>
         </nav>
         <!-- 購物車 Icon -->
+         <button>
+          
+         </button>
         <button class="relative cursor-pointer" @click="handleClick">
           <icon class="text-3xl text-white-500" name="i-material-symbols-shopping-cart-rounded" />
           <span class="absolute -top-2 -right-2 bg-red-500 text-xs text-white rounded-full px-2">
@@ -31,6 +34,8 @@
 </template>
 
 <script setup>
+const { currentUserEmail, login, logout } = useAuth()
+const isLoggedIn = useState('isLoggedIn');
 
 const showCart = useState('showCart', () => false);
 

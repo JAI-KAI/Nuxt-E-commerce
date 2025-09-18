@@ -43,11 +43,13 @@
 
         <div>
           <button v-if="isOnSignIn" type="submit"
-            class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign
-            in</button>
+            class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+            Signin
+          </button>
           <button v-else type="submit"
-            class="flex w-full justify-center rounded-md bg-teal-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-teal-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600">Sign
-            up</button>
+            class="flex w-full justify-center rounded-md bg-teal-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-teal-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600">
+            Signup
+          </button>
         </div>
       </form>
     </div>
@@ -55,6 +57,7 @@
 </template>
 
 <script setup>
+const { currentUserEmail, login, logout } = useAuth()
 
 const isOnSignIn = ref(true)
 const userEmail = ref()
@@ -67,32 +70,39 @@ const onSubmit = () => {
   isOnSignIn.value ? onSignIn() : onSignUp()
 }
 
+// 登入
 const onSignIn = () => {
-  const currentUserInfo = userInfos.value.filter(e => e.userEmail == userEmail.value)
-  if(currentUserInfo.length == 1) {
-    if(currentUserInfo[0].userPassWord === userPassWord.value) {
+  const currentUserInfo = userInfos.value.filter(e => e.userEmail === userEmail.value)
+  if (currentUserInfo.length == 1) {
+    if (currentUserInfo[0].userPassWord === userPassWord.value) {
+      login()
+      currentUserEmail(userEmail.value)
+      navigateTo('/')
       alert('登入成功')
-    }else {
-      alert('登入失敗')
+    } else {
+      alert('密碼錯誤')
     }
-  }else {
+  } else {
     alert('帳號信箱錯誤')
   }
 }
 
+// 註冊
 const onSignUp = () => {
   const userInput = {
     userEmail: userEmail.value,
     userPassWord: userPassWord.value
   }
-  if (!userInfos.value.map(e => e.userEmail).includes(userEmail.value)) {
-    userInfos.value.push(userInput)
-    localStorage.setItem('userInfos', JSON.stringify(userInfos.value))
-    isOnSignIn.value = true
-    alert('註冊成功 請登入')
-  }else {
-    alert('此帳號已註冊過')
-  }
+  setTimeout(() => {
+    if (!userInfos.value.map(e => e.userEmail).includes(userEmail.value)) {
+      userInfos.value.push(userInput)
+      localStorage.setItem('userInfos', JSON.stringify(userInfos.value))
+      isOnSignIn.value = true
+      alert('註冊成功 請登入')
+    } else {
+      alert('此帳號已註冊過')
+    }
+  }, 500);
 }
 
 </script>
