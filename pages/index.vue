@@ -36,7 +36,7 @@
 </template>
 
 <script setup>
-const { currentUserEmail, login, logout } = useAuth()
+const { setCurrentUserEmail, getCurrentUserEmail, login, logout } = useAuth()
 const { addMessage } = useMessage();
 
 const isLoggedIn = useState('isLoggedIn');

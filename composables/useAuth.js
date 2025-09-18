@@ -1,20 +1,38 @@
 export const useAuth = () => {
-    const isLoggedIn = useState('isLoggedIn', () => false)
+    const isLoggedIn = useState('isLoggedIn', () => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('isLoggedIn') === 'true'
+        }
+    })
 
-    const currentUserEmail = (userEmail) => {
-        localStorage.setItem('currentUserEmail', userEmail)
+    const setCurrentUserEmail = (userEmail) => {
+        if (typeof window !== 'undefined') {
+            localStorage.setItem('currentUserEmail', userEmail)
+        }
+    }
+
+    const getCurrentUserEmail = () => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('currentUserEmail') || ''
+        }
+        return ''
     }
 
     const login = () => {
-        localStorage.setItem('isLoggedIn', true)
+        if (typeof window !== 'undefined') {
+            localStorage.setItem('isLoggedIn', true)
+        }
         isLoggedIn.value = true
     }
 
     const logout = () => {
-        localStorage.setItem('isLoggedIn', false)
+        if (typeof window !== 'undefined') {
+            localStorage.setItem('isLoggedIn', false)
+            localStorage.removeItem('currentUserEmail')
+        }
         isLoggedIn.value = false
-        localStorage.removeItem('currentUserEmail')
+        navigateTo('/login')
     }
 
-    return { currentUserEmail, login, logout }
+    return { setCurrentUserEmail, getCurrentUserEmail, login, logout }
 }

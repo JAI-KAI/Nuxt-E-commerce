@@ -57,7 +57,7 @@
 </template>
 
 <script setup>
-const { currentUserEmail, login, logout } = useAuth()
+const { setCurrentUserEmail, getCurrentUserEmail, login, logout } = useAuth()
 
 const isOnSignIn = ref(true)
 const userEmail = ref()
@@ -76,7 +76,7 @@ const onSignIn = () => {
   if (currentUserInfo.length == 1) {
     if (currentUserInfo[0].userPassWord === userPassWord.value) {
       login()
-      currentUserEmail(userEmail.value)
+      setCurrentUserEmail(userEmail.value)
       navigateTo('/')
       alert('登入成功')
     } else {

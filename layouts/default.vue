@@ -8,8 +8,8 @@
           <nuxt-link to="/about" class="hover:text-gray-200 font-semibold">關於</nuxt-link>
         </nav>
         <!-- 購物車 Icon -->
-         <button>
-          
+         <button @click="isLoggedIn ? logout() : navigateTo('/login')">
+          {{ isLoggedIn ? '登出' : '登入' }}
          </button>
         <button class="relative cursor-pointer" @click="handleClick">
           <icon class="text-3xl text-white-500" name="i-material-symbols-shopping-cart-rounded" />
@@ -34,17 +34,14 @@
 </template>
 
 <script setup>
-const { currentUserEmail, login, logout } = useAuth()
+const { setCurrentUserEmail, getCurrentUserEmail, login, logout } = useAuth()
+
+const { currentUserEmail }= getCurrentUserEmail()
 const isLoggedIn = useState('isLoggedIn');
-
 const showCart = useState('showCart', () => false);
-
 const showLightBox = useState('showLightBox', () => false);
-
 const isAmountOver = useState('isAmountOver', () => false);
-
 const cartItems = useState('cartItems', () => []);
-
 const category = useState('category', () => 'ALL');
 
 const cartAmount = computed(() => 
