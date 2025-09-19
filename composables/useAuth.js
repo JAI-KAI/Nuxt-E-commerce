@@ -5,34 +5,37 @@ export const useAuth = () => {
         }
     })
 
+    const currentUserEmail = useState('currentUserEmail', () => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('currentUserEmail')
+        }
+    })
+
     const setCurrentUserEmail = (userEmail) => {
         if (typeof window !== 'undefined') {
             localStorage.setItem('currentUserEmail', userEmail)
+            currentUserEmail.value = userEmail
         }
     }
 
-    const getCurrentUserEmail = () => {
-        if (typeof window !== 'undefined') {
-            return localStorage.getItem('currentUserEmail') || ''
-        }
-        return ''
-    }
-
-    const login = () => {
+    const login = (userEmail) => {
         if (typeof window !== 'undefined') {
             localStorage.setItem('isLoggedIn', true)
         }
+        setCurrentUserEmail(userEmail)
         isLoggedIn.value = true
+        navigateTo('/')
     }
 
     const logout = () => {
         if (typeof window !== 'undefined') {
             localStorage.setItem('isLoggedIn', false)
             localStorage.removeItem('currentUserEmail')
+            currentUserEmail.value = ''
         }
         isLoggedIn.value = false
         navigateTo('/login')
     }
 
-    return { setCurrentUserEmail, getCurrentUserEmail, login, logout }
+    return { setCurrentUserEmail, login, logout }
 }
