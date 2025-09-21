@@ -1,25 +1,24 @@
 export const useAuth = () => {
     const isLoggedIn = useState('isLoggedIn', () => {
-        if (typeof window !== 'undefined') {
+        if (import.meta.client) {
             return localStorage.getItem('isLoggedIn') === 'true'
         }
     })
 
-    const currentUserEmail = useState('currentUserEmail', () => {
-        if (typeof window !== 'undefined') {
-            return localStorage.getItem('currentUserEmail')
-        }
-    })
+    const currentUserEmail = useState('currentUserEmail', () => '')
+    if (import.meta.client) {
+        currentUserEmail.value = localStorage.getItem('currentUserEmail') || ''
+    }
 
     const setCurrentUserEmail = (userEmail) => {
-        if (typeof window !== 'undefined') {
+        if (import.meta.client) {
             localStorage.setItem('currentUserEmail', userEmail)
             currentUserEmail.value = userEmail
         }
     }
 
     const login = (userEmail) => {
-        if (typeof window !== 'undefined') {
+        if (import.meta.client) {
             localStorage.setItem('isLoggedIn', true)
         }
         setCurrentUserEmail(userEmail)
@@ -28,7 +27,7 @@ export const useAuth = () => {
     }
 
     const logout = () => {
-        if (typeof window !== 'undefined') {
+        if (import.meta.client) {
             localStorage.setItem('isLoggedIn', false)
             localStorage.removeItem('currentUserEmail')
             currentUserEmail.value = ''

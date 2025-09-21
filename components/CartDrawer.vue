@@ -8,8 +8,8 @@
             class="fixed right-0 top-0 h-full w-115 bg-white shadow-lg p-4 transition-transform duration-300 overflow-y-scroll"
             :class="showCart ? 'translate-x-0' : 'translate-x-full'">
             <h2 class="text-lg font-bold mb-4">🛒購物車</h2>
-            <ul v-if="cartItems.length > 0">
-                <li v-for="item in cartItems" :key="item.id"
+            <ul v-if="Array.isArray(currentUserCart[currentUserEmail]) && currentUserCart[currentUserEmail].length > 0">
+                <li v-for="item in currentUserCart[currentUserEmail]" :key="item.id"
                     class="flex justify-between items-center space-x-3 p-3 border-b">
                     <span class="flex-1">{{ item.title }}</span>
                     <span class="w-2/12 text-gray-600">${{ item.price }}</span>
@@ -41,9 +41,9 @@
                     <span>總計</span>
                     <span>${{ totalPrice }}</span>
                 </div>
-                <nuxt-link :to="cartItems.length > 0 ? '/checkout' : '/'" @click="() => showCart = false"
+                <nuxt-link :to="Array.isArray(currentUserCart[currentUserEmail]) && currentUserCart[currentUserEmail].length > 0 ? '/checkout' : '/'" @click="() => showCart = false"
                     class="block text-center mt-4 w-full bg-blue-600 text-white p-3 rounded hover:bg-blue-700 transition cursor-pointer">
-                    {{ cartItems.length > 0 ? '前往結帳' : '前往選購' }}
+                    {{ Array.isArray(currentUserCart[currentUserEmail]) && currentUserCart[currentUserEmail].length > 0 ? '前往結帳' : '前往選購' }}
                 </nuxt-link>
             </div>
             <div class="mt-4 pt-4">
@@ -58,12 +58,14 @@
 <script setup>
 const { minusAmount, addAmount, deleteItem } = useCart();
 
-const showCart = useState('showCart');
-
-const cartItems = useState('cartItems');
+const showCart = useState('showCart')
+const currentUserCart = useState('currentUserCart')
+const currentUserEmail  = useState('currentUserEmail')
 
 const totalPrice = computed(() =>
-    cartItems.value.reduce((sum, item) => sum + item.amount * item.price, 0).toFixed(2)
+    Array.isArray(currentUserCart.value[currentUserEmail.value])
+    ? currentUserCart.value[currentUserEmail.value].reduce((sum, item) => sum + item.amount * item.price, 0).toFixed(2)
+    : 0
 )
 
 const closeCart = () => {

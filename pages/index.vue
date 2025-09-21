@@ -1,5 +1,4 @@
 <template>
-    <LightBox />
     <div v-if="error" class="text-center mt-10">
         <p class="text-xl">伺服器錯誤，請稍後再試</p>
         <button @click="doRefresh" class="mt-10 px-3 py-2 bg-red-400 rounded cursor-pointer hover:opacity-70">
@@ -37,15 +36,16 @@
 
 <script setup>
 const { login, logout } = useAuth()
-const { addMessage } = useMessage();
+const { addToCart } = useCart()
+const { addMessage } = useMessage()
 
-const isLoggedIn = useState('isLoggedIn');
-const category = useState('category');
-const cartItems = useState('cartItems');
-
+const isLoggedIn = useState('isLoggedIn')
+const category = useState('category')
+const currentUserCart = useState('currentUserCart')
+const currentUserEmail  = useState('currentUserEmail')
 onBeforeMount(() => {
     if (!isLoggedIn.value) {
-        alert('請先登入')
+        addMessage('請先登入')
         navigateTo('/login')
     }
 })
@@ -58,18 +58,7 @@ const filteredProducts = computed(() => {
     return products.value.filter(product => product.category === category.value)
 })
 
-const addToCart = (productItem) => {
-    const product = cartItems.value.find(cartItems => cartItems.id === productItem.id);
-    if (!product) {
-        cartItems.value.push({ ...productItem, amount: 1 });
-        addMessage('成功加入購物車');
-    } else if (product.amount >= 10) {
-        addMessage('商品數量超過限制');
-    } else {
-        product.amount += 1
-        addMessage('成功加入購物車');
-    }
-}
+
 const doRefresh = () => {
     refresh()
     if (status.value == 'pending') {

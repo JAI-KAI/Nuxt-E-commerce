@@ -58,6 +58,7 @@
 
 <script setup>
 const { login, logout } = useAuth()
+const { addMessage } = useMessage()
 
 const isOnSignIn = ref(true)
 const userEmail = ref()
@@ -76,12 +77,12 @@ const onSignIn = () => {
   if (currentUserInfo.length == 1) {
     if (currentUserInfo[0].userPassWord === userPassWord.value) {
       login(userEmail.value)
-      alert('登入成功')
+      addMessage('登入成功')
     } else {
-      alert('密碼錯誤')
+      addMessage('密碼錯誤')
     }
   } else {
-    alert('帳號信箱錯誤')
+    addMessage('帳號信箱錯誤')
   }
 }
 
@@ -96,9 +97,9 @@ const onSignUp = () => {
       userInfos.value.push(userInput)
       localStorage.setItem('userInfos', JSON.stringify(userInfos.value))
       isOnSignIn.value = true
-      alert('註冊成功 請登入')
+      addMessage('註冊成功 請登入')
     } else {
-      alert('此帳號已註冊過')
+      addMessage('此帳號已註冊過')
     }
   }, 500);
 }
