@@ -23,7 +23,6 @@
             </span>
           </button>
         </div>
-
       </div>
     </header>
 
@@ -51,12 +50,11 @@ const showLightBox = useState('showLightBox', () => false)
 const category = useState('category', () => 'ALL')
 
 const cartAmount = computed(() => {
-  if (isLoggedIn.value) {
-    return Array.isArray(currentUserCart.value[currentUserEmail.value])
-      ? currentUserCart.value[currentUserEmail.value].reduce((sum, item) => sum + item.amount, 0)
-      : 0
-  }
-  return 0
+    if (!import.meta.client) return 0
+    const email = currentUserEmail.value
+    if (!isLoggedIn.value || !email || !currentUserCart.value || !currentUserCart.value[email]) return 0
+    const cart = currentUserCart.value[email]
+    return Array.isArray(cart) ? cart.reduce((sum, item) => sum + item.amount, 0) : 0
 })
 
 const handleClick = () => {

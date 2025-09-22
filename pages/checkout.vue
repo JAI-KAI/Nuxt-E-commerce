@@ -2,9 +2,9 @@
   <div class="max-w-3xl mx-auto p-6 bg-white shadow-md rounded-lg">
     <h1 class="text-2xl font-bold mb-4">結帳頁面</h1>
 
-    <div v-if="cartItems.length > 0">
+    <div v-if="Array.isArray(currentUserCart[currentUserEmail]) && currentUserCart[currentUserEmail].length > 0">
       <ul>
-        <li v-for="item in cartItems" :key="item.id" class="flex items-center w-full border-b py-4 space-x-3">
+        <li v-for="item in currentUserCart[currentUserEmail]" :key="item.id" class="flex items-center w-full border-b py-4 space-x-3">
           <!-- 商品圖片 -->
           <img :src="item.image" alt="商品圖片" class="w-1/12 h-16 object-contain rounded-lg mr-4" />
 
@@ -55,24 +55,21 @@
 
     <p v-else class="text-center text-gray-500">購物車內沒有商品</p>
   </div>
-  <nuxt-link v-show="cartItems.length === 0" to="/"
+  <nuxt-link v-show="Array.isArray(currentUserCart[currentUserEmail]) && currentUserCart[currentUserEmail].length === 0" to="/"
     class="max-w-3xl mx-auto block text-center mt-6 w-full bg-blue-600 text-white p-3 rounded hover:bg-blue-700 transition cursor-pointer">
     前往商品頁面進行選購
   </nuxt-link>
 </template>
 
 <script setup>
-const { minusAmount, addAmount, deleteItem } = useCart();
+const { minusAmount, addAmount, deleteItem, handleCheckout } = useCart()
 
-const cartItems = useState('cartItems');
+const currentUserCart = useState('currentUserCart')
+const currentUserEmail  = useState('currentUserEmail')
 
 // 計算總金額
 const totalPrice = computed(() =>
-  cartItems.value.reduce((sum, item) => sum + item.price * item.amount, 0)
-);
+  currentUserCart.value[currentUserEmail.value].reduce((sum, item) => sum + item.price * item.amount, 0)
+)
 
-// 結帳按鈕動作
-const handleCheckout = () => {
-  cartItems.value = [];
-};
 </script>

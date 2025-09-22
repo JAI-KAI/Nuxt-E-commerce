@@ -31,25 +31,31 @@ export const useCart = () => {
             item.amount -= 1
             localStorage.setItem('currentUserCart', JSON.stringify(currentUserCart.value))
         }
-    };
+    }
 
     const addAmount = (item) => {
         if (item.amount < 10) {
             item.amount += 1
             localStorage.setItem('currentUserCart', JSON.stringify(currentUserCart.value))
         }
-    };
+    }
 
     const deleteItem = (item) => {
         currentUserCart.value[currentUserEmail.value] = currentUserCart.value[currentUserEmail.value].filter(cartItem => cartItem.id !== item.id);
         localStorage.setItem('currentUserCart', JSON.stringify(currentUserCart.value))
-    };
+    }
+
+    const handleCheckout = () => {
+        currentUserCart.value[currentUserEmail.value] = []
+        localStorage.setItem('currentUserCart', JSON.stringify(currentUserCart.value))
+    }
 
     return {
         addToCart,
         minusAmount,
         addAmount,
-        deleteItem
-    };
-};
+        deleteItem,
+        handleCheckout
+    }
+}
 
