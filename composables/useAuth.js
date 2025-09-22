@@ -22,6 +22,7 @@ export const useAuth = () => {
             localStorage.setItem('isLoggedIn', true)
         }
         setCurrentUserEmail(userEmail)
+        localStorage.setItem('token', Date.now().toString())
         isLoggedIn.value = true
         navigateTo('/')
     }
@@ -30,6 +31,7 @@ export const useAuth = () => {
         if (import.meta.client) {
             localStorage.setItem('isLoggedIn', false)
             localStorage.removeItem('currentUserEmail')
+            localStorage.removeItem('token')
             currentUserEmail.value = ''
         }
         isLoggedIn.value = false
