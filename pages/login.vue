@@ -42,13 +42,12 @@
         </div>
 
         <div>
-          <button v-if="isOnSignIn" type="submit"
-            class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-            登入
-          </button>
-          <button v-else type="submit"
-            class="flex w-full justify-center rounded-md bg-teal-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-teal-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600">
-            登出
+          <button type="submit"
+            class="flex w-full justify-center rounded-md  px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 "
+            :class="isOnSignIn 
+            ? 'bg-indigo-600 hover:bg-indigo-500 focus-visible:outline-indigo-600' 
+            : 'bg-teal-600 hover:bg-teal-500 focus-visible:outline-teal-600'">
+            {{isOnSignIn ? '登入' : '註冊'}}
           </button>
         </div>
       </form>
