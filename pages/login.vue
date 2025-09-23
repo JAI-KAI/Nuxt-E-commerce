@@ -28,9 +28,9 @@
           <div class="flex items-center justify-between">
             <label for="password" class="block text-sm/6 font-medium text-gray-900">Password</label>
             <div class="text-sm">
-              <button @click="isOnSignIn = !isOnSignIn" type="button"
-                class="font-semibold text-indigo-600 hover:text-indigo-500">
-                {{ isOnSignIn ? 'Go Sign up' : 'Go Sign in' }}
+              <button @click="isOnSignIn = !isOnSignIn" type="button" class="font-semibold"
+                :class="isOnSignIn ? 'text-teal-600 hover:text-teal-500' : 'text-indigo-600 hover:text-indigo-500'">
+                {{ isOnSignIn ? '去註冊' : '去登入' }}
               </button>
             </div>
           </div>
@@ -44,11 +44,11 @@
         <div>
           <button v-if="isOnSignIn" type="submit"
             class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-            Signin
+            登入
           </button>
           <button v-else type="submit"
             class="flex w-full justify-center rounded-md bg-teal-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-teal-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600">
-            Signup
+            登出
           </button>
         </div>
       </form>
@@ -62,12 +62,12 @@ const { addMessage } = useMessage()
 
 const isLoggedIn = useState('isLoggedIn')
 const isOnSignIn = ref(true)
-const userEmail = ref()
-const userPassWord = ref()
+const userEmail = ref('')
+const userPassWord = ref('')
 const userInfos = ref()
 
 onMounted(() => {
-  if(isLoggedIn.value) {
+  if (isLoggedIn.value) {
     navigateTo('/')
   }
 })
@@ -81,17 +81,19 @@ const onSubmit = () => {
 
 // 登入
 const onSignIn = () => {
-  const currentUserInfo = userInfos.value.filter(e => e.userEmail === userEmail.value)
-  if (currentUserInfo.length == 1) {
-    if (currentUserInfo[0].userPassWord === userPassWord.value) {
-      login(userEmail.value)
-      addMessage('登入成功')
+  setTimeout(() => {
+    const currentUserInfo = userInfos.value.filter(e => e.userEmail === userEmail.value)
+    if (currentUserInfo.length == 1) {
+      if (currentUserInfo[0].userPassWord === userPassWord.value) {
+        login(userEmail.value)
+        addMessage('登入成功')
+      } else {
+        addMessage('密碼錯誤')
+      }
     } else {
-      addMessage('密碼錯誤')
+      addMessage('帳號信箱錯誤')
     }
-  } else {
-    addMessage('帳號信箱錯誤')
-  }
+  }, 500)
 }
 
 // 註冊
@@ -109,7 +111,7 @@ const onSignUp = () => {
     } else {
       addMessage('此帳號已註冊過')
     }
-  }, 500);
+  }, 500)
 }
 
 </script>
