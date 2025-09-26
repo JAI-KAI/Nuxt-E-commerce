@@ -1,5 +1,5 @@
 <template>
-    <aside class="w-64 bg-gray-100 p-4">
+    <aside class="w-32 p-2 lg:w-64 lg:p-4 bg-gray-100  ">
         <h2 class="text-lg font-bold mb-4">商品分類</h2>
         <ul>
             <li v-for="category in categories" :key="category" class="mb-2">

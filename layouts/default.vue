@@ -2,15 +2,15 @@
   <LightBox />
   <div class="flex flex-col min-h-screen">
     <!-- Header -->
-    <header class="bg-blue-600 text-white py-4 px-10 shadow-lg">
+    <header class="bg-blue-600 text-white py-4 px-4 lg:px-8 shadow-lg">
       <div class="container mx-auto flex justify-between items-center px-4">
-        <nav class="flex space-x-6">
+        <nav class="flex space-x-6 lg:space-x-10">
           <nuxt-link to="/" class="hover:text-gray-200 font-semibold">首頁</nuxt-link>
           <nuxt-link to="/about" class="hover:text-gray-200 font-semibold">關於</nuxt-link>
         </nav>
 
         <div class="flex items-center space-x-5">
-          <span>{{ currentUserEmail }}</span>
+          <span class=" hidden lg:block">{{ currentUserEmail }}</span>
           <button @click="isLoggedIn ? logout() : navigateTo('/login')"
             class="hover:text-gray-200 font-semibold cursor-pointer">
             {{ isLoggedIn ? '登出' : '登入' }}
@@ -27,7 +27,7 @@
     </header>
 
     <!-- Main Content -->
-    <main class="flex-1 container mx-auto p-6">
+    <main class="flex-1 container mx-auto p-4 lg:p-6">
       <slot></slot>
     </main>
 
