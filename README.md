@@ -16,7 +16,7 @@
     顯示錯誤提示並提供「重新整理」按鈕。
 - 使用mockAPI模擬CRUD操作
 
-## 使用技術：  
+## 使用技術
 - Nuxt 3：基於 Vue.js 的全端框架，結合 Nitro 與 Vite。
 - Tailwind CSS：以 Utility-first 方式快速設計響應式 UI。
 - Fake Store API：模擬商品資料來源。
