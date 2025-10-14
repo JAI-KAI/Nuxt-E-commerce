@@ -24,5 +24,5 @@
 - Vercel：快速部署前端應用並自動 CI/CD。
 
 ## Demo 網址
-🔗 [線上試用](nuxt-e-commerce.vercel.app)
+🔗 [線上試用](https://nuxt-e-commerce-eta.vercel.app)
 
