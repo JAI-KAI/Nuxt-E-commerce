@@ -8,8 +8,8 @@ export default defineNuxtConfig({
     colorMode: false
   },
   app: {
-    baseURL: "/Nuxt-E-commerce/", // GitHub Pages 需要設定 baseURL
-    buildAssetsDir: '/static/',
+    baseURL: "/", // // Vercel 預設根目錄
+    buildAssetsDir: '/_nuxt/', // 預設
     head: {
       title: '購物車電商網站',
       meta: [
