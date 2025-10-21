@@ -22,6 +22,9 @@
 - **Composable + useState**
 - **Vercel**
 
+## 技術挑戰
+在購物車功能的開發中，運用 Vue composables 將購物車資料、操作邏輯（如增減商品、刪除商品）抽離成可重用函式，成功解決了多個元件間資料共享與操作邏輯重複的問題，讓專案架構更清晰、維護更便利。
+
 ## Demo 
 🔗 [線上試用](https://nuxt-e-commerce-eta.vercel.app)
 
