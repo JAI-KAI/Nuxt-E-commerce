@@ -17,7 +17,7 @@
                 <li><span class="font-semibold text-blue-500">部署:</span> 部署至 Vercel，提供可線上存取的成品展示。</li>
             </ul>
 
-            <!-- 其他作品鏈接 -->
+            <!-- 其他作品連結 -->
             <div class="mt-6">
                 <p class="text-lg text-gray-800 mb-2">更多作品：</p>
                 <a href="https://github.com/JAI-KAI" target="_blank"
