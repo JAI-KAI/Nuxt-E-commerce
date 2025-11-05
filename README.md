@@ -1,7 +1,7 @@
 ## Nuxt 電商購物網站
-本專案以 **Nuxt 3** 為核心，結合 **Fake Store API** 製作的模擬電商網站。
-實作商品列表、購物車、模擬登入與 **Token** 管理等功能，並使用 **Vercel** 部署。
-透過 **Composable** 管理全域狀態，模擬真實前後端協作流程。
+
+本專案是一個使用 **Nuxt 3** 搭配 **Tailwind CSS** 開發的現代化電商網站 **SPA (Single Page Application)** 模擬應用。
+實作商品列表、購物車、模擬登入與 **Token 授權管理**等核心功能。**透過 Nuxt Composable 實現全域狀態管理與邏輯複用**，並部署於 **Vercel** 實現 **CI/CD** 自動化流程，高度模擬真實商業應用情境。
 
 ## 功能特色
 - **商品瀏覽**：從 Fake Store API 取得商品資料並顯示
@@ -9,8 +9,8 @@
 - **動態提示訊息**（Lightbox）：操作回饋（新增成功、超過數量限制）
 - **模擬登入 / 註冊系統**：
     Email 與密碼格式驗證。  
-    模擬登入成功後產生 Token 並儲存於 LocalStorage。   
-    後續 API 請求自動帶入 Token 模擬授權。
+    使用 LocalStorage 儲存 Token，實作持久性登入狀態管理。  
+    利用 Nuxt 中介層 (Middleware) 模擬路由保護，確保未登入用戶無法訪問特定頁面。
 - **錯誤與例外處理**：
     API 呼叫失敗時提供錯誤提示與重新整理功能。
 
@@ -18,7 +18,7 @@
 - **Nuxt 3**
 - **Tailwind CSS**
 - **Fake Store API**
-- **Composable + useState**
+- **Nuxt Composable (狀態、邏輯抽象)**
 - **Vercel**
 
 ## 技術挑戰
