@@ -57,11 +57,14 @@ const userEmail = ref('')
 const userPassWord = ref('')
 const userInfos = ref()
 
-onMounted(() => {
-  if (isLoggedIn.value) {
-    navigateTo('/')
-  }
+definePageMeta({
+  middleware: ['auth']
 })
+// onMounted(() => {
+//   if (isLoggedIn.value) {
+//     navigateTo('/')
+//   }
+// })
 
 if (import.meta.client) {
   userInfos.value = JSON.parse(localStorage.getItem('userInfos')) || []

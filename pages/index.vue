@@ -43,16 +43,19 @@ const isLoggedIn = useState('isLoggedIn')
 const category = useState('category')
 let token
 
-if (import.meta.client) {
-    if (!localStorage.getItem('token')) {
-        isLoggedIn.value = false
-        addMessage('請先登入')
-        navigateTo('/login')
-    }
-    else {
-        token = localStorage.getItem('token')
-    }
-}
+definePageMeta({
+    middleware: ['auth']
+})
+// if (import.meta.client) {
+//     if (!localStorage.getItem('token')) {
+//         isLoggedIn.value = false
+//         addMessage('請先登入')
+//         navigateTo('/login')
+//     }
+//     else {
+//         token = localStorage.getItem('token')
+//     }
+// }
 
 const { data: products, error, status, refresh } = useFetch('https://fakestoreapi.com/products', {
     headers: {
