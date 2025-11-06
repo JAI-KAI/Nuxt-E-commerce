@@ -1,9 +1,11 @@
 export const useAuth = () => {
-    const isLoggedIn = useState('isLoggedIn', () => {
-        if (import.meta.client) {
-            return localStorage.getItem('isLoggedIn') === 'true'
-        }
-    })
+    const isLoggedIn = useState('isLoggedIn', () => false)
+
+    // 在客戶端初始化時同步登入狀態
+    if (import.meta.client) {
+        const token = localStorage.getItem('token')
+        isLoggedIn.value = !!token
+    }
 
     const currentUserEmail = useState('currentUserEmail', () => '')
     if (import.meta.client) {
@@ -19,17 +21,15 @@ export const useAuth = () => {
 
     const login = (userEmail) => {
         if (import.meta.client) {
-            localStorage.setItem('isLoggedIn', true)
+            localStorage.setItem('token', Date.now().toString())
+            setCurrentUserEmail(userEmail)
+            isLoggedIn.value = true
         }
-        setCurrentUserEmail(userEmail)
-        localStorage.setItem('token', Date.now().toString())
-        isLoggedIn.value = true
         navigateTo('/')
     }
 
     const logout = () => {
         if (import.meta.client) {
-            localStorage.setItem('isLoggedIn', false)
             localStorage.removeItem('currentUserEmail')
             localStorage.removeItem('token')
             currentUserEmail.value = ''
@@ -38,5 +38,5 @@ export const useAuth = () => {
         navigateTo('/login')
     }
 
-    return { setCurrentUserEmail, login, logout }
+    return { isLoggedIn, setCurrentUserEmail, login, logout }
 }

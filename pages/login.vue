@@ -48,10 +48,9 @@
 </template>
 
 <script setup>
-const { login, logout } = useAuth()
+const { login } = useAuth()
 const { addMessage } = useMessage()
 
-const isLoggedIn = useState('isLoggedIn')
 const isOnSignIn = ref(true)
 const userEmail = ref('')
 const userPassWord = ref('')
@@ -60,11 +59,6 @@ const userInfos = ref()
 definePageMeta({
   middleware: ['auth']
 })
-// onMounted(() => {
-//   if (isLoggedIn.value) {
-//     navigateTo('/')
-//   }
-// })
 
 if (import.meta.client) {
   userInfos.value = JSON.parse(localStorage.getItem('userInfos')) || []
