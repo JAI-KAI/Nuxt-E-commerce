@@ -1,6 +1,6 @@
 export const useCart = () => {
     const { addMessage } = useMessage()
-    const currentUserEmail = useState('currentUserEmail')
+    const { currentUserEmail } = useAuth()
     const currentUserCart = useState('currentUserCart', () => ({}))
     if (import.meta.client) {
         const saved = localStorage.getItem('currentUserCart')

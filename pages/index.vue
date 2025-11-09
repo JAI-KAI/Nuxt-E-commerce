@@ -48,20 +48,13 @@
 
 const { addToCart } = useCart()
 const { addMessage } = useMessage()
-
-// const isLoggedIn = useState('isLoggedIn')
 const category = useState('category')
-let token
 
 definePageMeta({
     middleware: ['auth']
 })
 
-const { data: products, error, status, refresh } = useFetch('https://fakestoreapi.com/products', {
-    headers: {
-        Authorization: `Bearer ${token}`
-    }
-})
+const { products, error, status, refresh } = useAuthFetch()
 
 const filteredProducts = computed(() => {
     // 商品分類顯示

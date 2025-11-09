@@ -1,42 +1,27 @@
 export const useAuth = () => {
-    const isLoggedIn = useState('isLoggedIn', () => false)
+    const tokenCookie = useCookie('user-token')
+    const isLoggedIn = computed(() => !!tokenCookie.value)
 
-    // 在客戶端初始化時同步登入狀態
-    if (import.meta.client) {
-        const token = localStorage.getItem('token')
-        isLoggedIn.value = !!token
-    }
-
-    const currentUserEmail = useState('currentUserEmail', () => '')
-    if (import.meta.client) {
-        currentUserEmail.value = localStorage.getItem('currentUserEmail') || ''
-    }
+    const emailCookie = useCookie('user-email')
+    const currentUserEmail = computed(() => {
+        return emailCookie.value || ''
+    })
 
     const setCurrentUserEmail = (userEmail) => {
-        if (import.meta.client) {
-            localStorage.setItem('currentUserEmail', userEmail)
-            currentUserEmail.value = userEmail
-        }
+        emailCookie.value = userEmail
     }
 
     const login = (userEmail) => {
-        if (import.meta.client) {
-            localStorage.setItem('token', Date.now().toString())
-            setCurrentUserEmail(userEmail)
-            isLoggedIn.value = true
-        }
+        tokenCookie.value = Date.now().toString()
+        setCurrentUserEmail(userEmail)
         navigateTo('/')
     }
 
     const logout = () => {
-        if (import.meta.client) {
-            localStorage.removeItem('currentUserEmail')
-            localStorage.removeItem('token')
-            currentUserEmail.value = ''
-        }
-        isLoggedIn.value = false
+        emailCookie.value = null
+        tokenCookie.value = null
         navigateTo('/login')
     }
 
-    return { isLoggedIn, setCurrentUserEmail, login, logout }
+    return { isLoggedIn, currentUserEmail, setCurrentUserEmail, login, logout }
 }
