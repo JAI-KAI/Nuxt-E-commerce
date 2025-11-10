@@ -9,7 +9,7 @@
 - **動態提示訊息**（Lightbox）：操作回饋（新增成功、超過數量限制）
 - **模擬登入 / 註冊系統**：  
     Email 與密碼格式驗證   
-    使用 useCookie 儲存 Token，確保在伺服器端即可存取狀態   
+    使用 useCookie 儲存 Token，確保在伺服器端可正確地存取狀態   
     利用 Nuxt 中介層 (Middleware) 模擬路由保護，確保未登入用戶無法訪問特定頁面   
 - **錯誤與例外處理**：
    實作 API Interceptor 概念（透過 Composables 實現），統一處理 API 呼叫失敗、網絡錯誤
