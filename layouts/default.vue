@@ -50,7 +50,7 @@ const category = useState('category', () => 'ALL')
 const cartAmount = computed(() => {
   if (!import.meta.client) return 0
   const email = currentUserEmail.value
-  if (!isLoggedIn.value || !email || !currentUserCart.value || !currentUserCart.value[email]) return 0
+  if (!currentUserCart.value[email]) return 0
   const cart = currentUserCart.value[email]
   return Array.isArray(cart) ? cart.reduce((sum, item) => sum + item.amount, 0) : 0
 })

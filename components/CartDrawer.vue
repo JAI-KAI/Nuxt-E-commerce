@@ -41,9 +41,12 @@
                     <span>總計</span>
                     <span>${{ totalPrice }}</span>
                 </div>
-                <nuxt-link :to="Array.isArray(currentUserCart[currentUserEmail]) && currentUserCart[currentUserEmail].length > 0 ? '/checkout' : '/'" @click="() => showCart = false"
+                <nuxt-link
+                    :to="Array.isArray(currentUserCart[currentUserEmail]) && currentUserCart[currentUserEmail].length > 0 ? '/checkout' : '/'"
+                    @click="() => showCart = false"
                     class="block text-center mt-4 w-full bg-blue-600 text-white p-3 rounded hover:bg-blue-700 transition cursor-pointer">
-                    {{ Array.isArray(currentUserCart[currentUserEmail]) && currentUserCart[currentUserEmail].length > 0 ? '前往結帳' : '前往選購' }}
+                    {{ Array.isArray(currentUserCart[currentUserEmail]) && currentUserCart[currentUserEmail].length > 0
+                        ? '前往結帳' : '前往選購' }}
                 </nuxt-link>
             </div>
             <div class="mt-4 pt-4">
@@ -60,12 +63,12 @@ const { minusAmount, addAmount, deleteItem } = useCart();
 
 const showCart = useState('showCart')
 const currentUserCart = useState('currentUserCart')
-const currentUserEmail  = useState('currentUserEmail')
+const { currentUserEmail } = useAuth()
 
 const totalPrice = computed(() =>
     Array.isArray(currentUserCart.value[currentUserEmail.value])
-    ? currentUserCart.value[currentUserEmail.value].reduce((sum, item) => sum + item.amount * item.price, 0).toFixed(2)
-    : 0
+        ? currentUserCart.value[currentUserEmail.value].reduce((sum, item) => sum + item.amount * item.price, 0).toFixed(2)
+        : 0
 )
 
 const closeCart = () => {
