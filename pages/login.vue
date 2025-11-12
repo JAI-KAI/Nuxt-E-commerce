@@ -70,20 +70,17 @@ const onSubmit = () => {
 }
 
 // 登入
-const onSignIn = () => {
-  setTimeout(() => {
-    const currentUserInfo = userInfos.value.filter(e => e.userEmail === userEmail.value)
-    if (currentUserInfo.length == 1) {
-      if (currentUserInfo[0].userPassWord === userPassWord.value) {
-        login(userEmail.value)
-        addMessage('登入成功')
-      } else {
-        addMessage('密碼錯誤')
-      }
+const onSignIn = async () => {
+  const currentUserInfo = userInfos.value.filter(e => e.userEmail === userEmail.value)
+  if (currentUserInfo.length == 1) {
+    if (currentUserInfo[0].userPassWord === userPassWord.value) {
+      await login(userEmail.value)
     } else {
-      addMessage('帳號信箱錯誤')
+      addMessage('密碼錯誤')
     }
-  }, 500)
+  } else {
+    addMessage('帳號信箱錯誤')
+  }
 }
 
 // 註冊

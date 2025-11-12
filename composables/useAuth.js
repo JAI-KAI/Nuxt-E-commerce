@@ -1,9 +1,6 @@
 export const useAuth = () => {
-    const tokenCookie = useCookie('user-token', {
-        path: '/',
-        sameSite: 'lax',
-        secure: false, // 若 https 可設 true
-    })
+    const { addMessage } = useMessage()
+    const tokenCookie = useCookie('user-token')
     const isLoggedIn = computed(() => !!tokenCookie.value)
 
     const emailCookie = useCookie('user-email')
@@ -15,15 +12,18 @@ export const useAuth = () => {
         emailCookie.value = userEmail
     }
 
-    const login = (userEmail) => {
-        tokenCookie.value = Date.now().toString()
-        setCurrentUserEmail(userEmail)
-        navigateTo('/')
+    const login = async (userEmail) => {
+        let { success } = await $fetch('/api/login', { method: 'POST' })
+        if (success) {
+            addMessage('登入成功')
+            setCurrentUserEmail(userEmail)
+            navigateTo('/')
+        }
     }
 
-    const logout = () => {
+    const logout = async () => {
+        await $fetch('/api/logout', { method: 'POST' })
         emailCookie.value = null
-        tokenCookie.value = null
         navigateTo('/login')
     }
 

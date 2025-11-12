@@ -6,7 +6,9 @@ export default defineNuxtRouteMiddleware((to, from) => {
     // 防止已登入用戶回到登入頁面
     if (to.path === '/login' && isLoggedIn.value) {
         addMessage('您已登入，將為您導航回首頁')
-        return navigateTo('/')
+        setTimeout(() => {
+            return navigateTo('/')
+        }, 0);
     }
 
     // 防止未登入用戶訪問受保護頁面
