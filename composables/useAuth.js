@@ -23,5 +23,5 @@ export const useAuth = () => {
         navigateTo('/login')
     }
 
-    return { isLoggedIn, currentUserEmail, setCurrentUserEmail, login, logout }
+    return {tokenCookie, isLoggedIn, currentUserEmail, setCurrentUserEmail, login, logout }
 }
