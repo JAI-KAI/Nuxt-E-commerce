@@ -1,5 +1,9 @@
 export const useAuth = () => {
-    const tokenCookie = useCookie('user-token')
+    const tokenCookie = useCookie('user-token', {
+        path: '/',
+        sameSite: 'lax',
+        secure: false, // 若 https 可設 true
+    })
     const isLoggedIn = computed(() => !!tokenCookie.value)
 
     const emailCookie = useCookie('user-email')
@@ -23,5 +27,5 @@ export const useAuth = () => {
         navigateTo('/login')
     }
 
-    return {tokenCookie, isLoggedIn, currentUserEmail, setCurrentUserEmail, login, logout }
+    return { tokenCookie, isLoggedIn, currentUserEmail, setCurrentUserEmail, login, logout }
 }

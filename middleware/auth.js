@@ -1,6 +1,4 @@
 export default defineNuxtRouteMiddleware((to, from) => {
-    if (process.server) return
-
     const { addMessage } = useMessage()
     // 從 Composable 中獲取狀態
     const { isLoggedIn } = useAuth()

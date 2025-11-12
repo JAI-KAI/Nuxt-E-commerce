@@ -7,6 +7,7 @@ export default defineNuxtConfig({
   ui: {
     colorMode: false
   },
+  ssr: true,
   app: {
     baseURL: "/", // // Vercel 預設根目錄
     buildAssetsDir: '/_nuxt/', // 預設
