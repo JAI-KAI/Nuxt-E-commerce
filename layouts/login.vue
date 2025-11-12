@@ -10,17 +10,9 @@
         </nav>
 
         <div class="flex items-center space-x-5">
-          <span class=" hidden lg:block">{{ currentUserEmail }}</span>
           <button @click="isLoggedIn ? logout() : navigateTo('/login')"
             class="hover:text-gray-200 font-semibold cursor-pointer">
             {{ isLoggedIn ? '登出' : '登入' }}
-          </button>
-          <!-- 購物車 Icon -->
-          <button v-if="isLoggedIn" class="flex items-center relative cursor-pointer" @click="handleClick">
-            <icon class="text-3xl text-white-500" name="i-material-symbols-shopping-cart-rounded" />
-            <span class="absolute -top-2 -right-2 bg-red-500 text-xs text-white rounded-full px-2">
-              {{ cartAmount }}
-            </span>
           </button>
         </div>
       </div>
@@ -36,27 +28,10 @@
       <p>JAIKAI All rights reserved {{ new Date().getFullYear() }}</p>
     </footer>
   </div>
-  <CartDrawer v-if="isLoggedIn" />
 </template>
 
 <script setup>
-const { login, logout, isLoggedIn, currentUserEmail } = useAuth()
+const { logout, isLoggedIn } = useAuth()
 
-const currentUserCart = useState('currentUserCart')
-const showCart = useState('showCart', () => false)
-const showLightBox = useState('showLightBox', () => false)
-const category = useState('category', () => 'ALL')
-
-const cartAmount = computed(() => {
-  if (!import.meta.client) return 0
-  const email = currentUserEmail.value
-  if (!currentUserCart.value[email]) return 0
-  const cart = currentUserCart.value[email]
-  return Array.isArray(cart) ? cart.reduce((sum, item) => sum + item.amount, 0) : 0
-})
-
-const handleClick = () => {
-  showCart.value = true
-}
 
 </script>

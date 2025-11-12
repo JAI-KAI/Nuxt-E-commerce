@@ -51,6 +51,7 @@ const { addMessage } = useMessage()
 const category = useState('category')
 
 definePageMeta({
+    layout: 'default',
     middleware: ['auth']
 })
 

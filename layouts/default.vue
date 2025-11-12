@@ -44,15 +44,16 @@ const { login, logout, isLoggedIn, currentUserEmail } = useAuth()
 
 const currentUserCart = useState('currentUserCart')
 const showCart = useState('showCart', () => false)
-const showLightBox = useState('showLightBox', () => false)
 const category = useState('category', () => 'ALL')
 
 const cartAmount = computed(() => {
-  if (!import.meta.client) return 0
-  const email = currentUserEmail.value
-  if (!currentUserCart.value[email]) return 0
-  const cart = currentUserCart.value[email]
-  return Array.isArray(cart) ? cart.reduce((sum, item) => sum + item.amount, 0) : 0
+  if (import.meta.client) {
+    const email = currentUserEmail.value
+    if (!currentUserCart.value || !currentUserCart.value[email]) return 0
+    const cart = currentUserCart.value[email]
+    return Array.isArray(cart) ? cart.reduce((sum, item) => sum + item.amount, 0) : 0
+  }
+  return 0
 })
 
 const handleClick = () => {
