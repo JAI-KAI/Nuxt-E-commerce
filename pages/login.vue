@@ -58,6 +58,7 @@ const userPassWord = ref('')
 const userInfos = ref()
 
 definePageMeta({
+  layout: 'login',
   middleware: ['auth']
 })
 
