@@ -4,11 +4,6 @@ export default defineNuxtRouteMiddleware((to, from) => {
     // 從 Composable 中獲取狀態
     const { isLoggedIn } = useAuth()
 
-    const nuxtApp = useNuxtApp()
-    if (process.client && nuxtApp.isHydrating && nuxtApp.payload.serverRendered) {
-        return
-    }
-
     // 防止已登入用戶回到登入頁面
     if (to.path === '/login' && isLoggedIn.value) {
         addMessage('您已登入，將為您導航回首頁')
