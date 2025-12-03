@@ -1,6 +1,6 @@
 export const useAuthFetch = () => {
-    const headers = {}
-    const tokenCookie = useCookie('user-token').value
+    const headers: Record<string, string> = {}
+    const tokenCookie = useCookie('user-token')
     if (tokenCookie) {
         headers['Authorization'] = `Bearer ${tokenCookie}`
     }

@@ -8,11 +8,11 @@ export const useAuth = () => {
         return emailCookie.value || ''
     })
 
-    const setCurrentUserEmail = (userEmail) => {
+    const setCurrentUserEmail = (userEmail: string) => {
         emailCookie.value = userEmail
     }
 
-    const login = async (userEmail) => {
+    const login = async (userEmail: string) => {
         let { success } = await $fetch('/api/login', { method: 'POST' })
         if (success) {
             addMessage('登入成功')

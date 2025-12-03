@@ -1,14 +1,19 @@
 export const useCart = () => {
     const { addMessage } = useMessage()
     const { currentUserEmail } = useAuth()
-    const currentUserCart = useState('currentUserCart', () => ({}))
+    const currentUserCart = useState<Record<string, any[]>>('currentUserCart', () => ({}))
     if (import.meta.client) {
         const saved = localStorage.getItem('currentUserCart')
         if (saved) {
             currentUserCart.value = JSON.parse(saved)
         }
     }
-    const addToCart = (productItem) => {
+    interface CartItem {
+        id: string | number;
+        amount: number;
+        [key: string]: any; //允許有任意數量的屬性，屬性的名稱是字串，值的型別是 any。
+    }
+    const addToCart = (productItem: CartItem) => {
         if (!currentUserCart.value[currentUserEmail.value]) {
             currentUserCart.value[currentUserEmail.value] = []
         }
@@ -26,21 +31,21 @@ export const useCart = () => {
         }
     }
 
-    const minusAmount = (item) => {
+    const minusAmount = (item: CartItem) => {
         if (item.amount > 1) {
             item.amount -= 1
             localStorage.setItem('currentUserCart', JSON.stringify(currentUserCart.value))
         }
     }
 
-    const addAmount = (item) => {
+    const addAmount = (item: CartItem) => {
         if (item.amount < 10) {
             item.amount += 1
             localStorage.setItem('currentUserCart', JSON.stringify(currentUserCart.value))
         }
     }
 
-    const deleteItem = (item) => {
+    const deleteItem = (item: CartItem) => {
         currentUserCart.value[currentUserEmail.value] = currentUserCart.value[currentUserEmail.value].filter(cartItem => cartItem.id !== item.id);
         localStorage.setItem('currentUserCart', JSON.stringify(currentUserCart.value))
     }
