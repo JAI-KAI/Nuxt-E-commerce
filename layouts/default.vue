@@ -39,10 +39,10 @@
   <CartDrawer v-if="isLoggedIn" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const { login, logout, isLoggedIn, currentUserEmail } = useAuth()
 
-const currentUserCart = useState('currentUserCart')
+const currentUserCart = useState<Record<string, any>>('currentUserCart')
 const showCart = useState('showCart', () => false)
 const category = useState('category', () => 'ALL')
 

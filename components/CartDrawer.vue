@@ -58,11 +58,11 @@
     </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 const { minusAmount, addAmount, deleteItem } = useCart();
-
+import type { Product } from '@/pages/index.vue';
 const showCart = useState('showCart')
-const currentUserCart = useState('currentUserCart')
+const currentUserCart = useState<Record<string, Product[]>>('currentUserCart')
 const { currentUserEmail } = useAuth()
 
 const totalPrice = computed(() =>

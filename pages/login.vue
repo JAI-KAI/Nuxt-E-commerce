@@ -48,14 +48,19 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 const { login } = useAuth()
 const { addMessage } = useMessage()
+
+interface UserInfo {
+  userEmail: string;
+  userPassWord: string;
+}
 
 const isOnSignIn = ref(true)
 const userEmail = ref('')
 const userPassWord = ref('')
-const userInfos = ref()
+const userInfos = ref<UserInfo[]>([])
 
 definePageMeta({
   layout: 'login',
@@ -63,7 +68,7 @@ definePageMeta({
 })
 
 if (import.meta.client) {
-  userInfos.value = JSON.parse(localStorage.getItem('userInfos')) || []
+  userInfos.value = JSON.parse(localStorage.getItem('userInfos') || '[]')
 }
 const onSubmit = () => {
   isOnSignIn.value ? onSignIn() : onSignUp()

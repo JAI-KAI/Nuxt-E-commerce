@@ -8,7 +8,7 @@ export default defineNuxtRouteMiddleware((to, from) => {
         addMessage('您已登入，將為您導航回首頁')
         setTimeout(() => {
             return navigateTo('/')
-        }, 0);
+        }, 500);
     }
 
     // 防止未登入用戶訪問受保護頁面

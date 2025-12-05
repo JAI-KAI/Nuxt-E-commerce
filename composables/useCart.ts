@@ -1,3 +1,5 @@
+import type { Product } from '@/pages/index.vue'
+
 export const useCart = () => {
     const { addMessage } = useMessage()
     const { currentUserEmail } = useAuth()
@@ -8,12 +10,7 @@ export const useCart = () => {
             currentUserCart.value = JSON.parse(saved)
         }
     }
-    interface CartItem {
-        id: string | number;
-        amount: number;
-        [key: string]: any; //允許有任意數量的屬性，屬性的名稱是字串，值的型別是 any。
-    }
-    const addToCart = (productItem: CartItem) => {
+    const addToCart = (productItem: Product) => {
         if (!currentUserCart.value[currentUserEmail.value]) {
             currentUserCart.value[currentUserEmail.value] = []
         }
@@ -31,21 +28,21 @@ export const useCart = () => {
         }
     }
 
-    const minusAmount = (item: CartItem) => {
+    const minusAmount = (item: Product) => {
         if (item.amount > 1) {
             item.amount -= 1
             localStorage.setItem('currentUserCart', JSON.stringify(currentUserCart.value))
         }
     }
 
-    const addAmount = (item: CartItem) => {
+    const addAmount = (item: Product) => {
         if (item.amount < 10) {
             item.amount += 1
             localStorage.setItem('currentUserCart', JSON.stringify(currentUserCart.value))
         }
     }
 
-    const deleteItem = (item: CartItem) => {
+    const deleteItem = (item: Product) => {
         currentUserCart.value[currentUserEmail.value] = currentUserCart.value[currentUserEmail.value].filter(cartItem => cartItem.id !== item.id);
         localStorage.setItem('currentUserCart', JSON.stringify(currentUserCart.value))
     }
@@ -60,7 +57,7 @@ export const useCart = () => {
         minusAmount,
         addAmount,
         deleteItem,
-        handleCheckout
+        handleCheckout,
     }
 }
 

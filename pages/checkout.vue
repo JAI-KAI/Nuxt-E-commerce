@@ -63,10 +63,11 @@
   </nuxt-link>
 </template>
 
-<script setup>
+<script setup lang="ts">
 const { minusAmount, addAmount, deleteItem, handleCheckout } = useCart()
+import type { Product } from '@/pages/index.vue'
 
-const currentUserCart = useState('currentUserCart')
+const currentUserCart = useState<Record<string, Product[]>>('currentUserCart')
 const { currentUserEmail } = useAuth()
 
 // 計算總金額

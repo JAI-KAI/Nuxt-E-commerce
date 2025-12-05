@@ -1,11 +1,7 @@
 <template>
     <div class="fixed top-5 left-1/2 -translate-x-1/2 z-50">
-        <transition-group 
-            name="fade" 
-            tag="div" 
-            class="space-y-2">
-            <div v-for="msg of messages" 
-                :key="msg.id"
+        <transition-group name="fade" tag="div" class="space-y-2">
+            <div v-for="msg of messages" :key="msg.id"
                 class=" bg-white px-6 py-3 rounded shadow-md text-center min-w-[240px]">
                 {{ msg.text }}
             </div>
@@ -14,13 +10,13 @@
 
 </template>
 
-<script setup>
+<script setup lang="ts">
 const { messages } = useMessage();
 
 const isAllLeaving = ref(false);
 
 watchEffect(() => {
-  isAllLeaving.value = messages.value.length === 1;
+    isAllLeaving.value = messages.value.length === 1;
 });
 </script>
 

@@ -13,7 +13,7 @@ export const useAuth = () => {
     }
 
     const login = async (userEmail: string) => {
-        let { success } = await $fetch('/api/login', { method: 'POST' })
+        let { success } = await $fetch<{ success: boolean }>('/api/login', { method: 'POST' })
         if (success) {
             addMessage('登入成功')
             setCurrentUserEmail(userEmail)

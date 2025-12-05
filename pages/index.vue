@@ -44,8 +44,7 @@
     </div>
 </template>
 
-<script setup>
-
+<script setup lang="ts">
 const { addToCart } = useCart()
 const { addMessage } = useMessage()
 const category = useState('category')
@@ -55,7 +54,17 @@ definePageMeta({
     middleware: ['auth']
 })
 
-const { products, error, status, refresh } = useAuthFetch()
+export interface Product {
+    id: number;
+    title: string;
+    price: number;
+    description: string;
+    category: string;
+    image: string;
+    [key: string]: any;
+}
+
+const { products, error, status, refresh } = useAuthFetch<Product[]>()
 
 const filteredProducts = computed(() => {
     // 商品分類顯示
