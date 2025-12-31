@@ -1,3 +1,5 @@
+[正體中文](README.md) | [日本語](README-ja.md)
+
 ## Nuxt 電商購物網站
 
 本專案是一個使用 **Nuxt 3** 搭配 **Tailwind CSS** 開發的現代化電商網站 **SPA (Single Page Application)** 模擬應用。
